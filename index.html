@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>WebRTC</title>
+    </head>
+
+    <body>
+        <h1>远程视频流</h1>
+        <video id="video1" style="width: 360px; height:480px"  controls muted="true"></video>
+        <h1>本地视频流</h1>
+        <video id="video2" style="width: 360px; height:480px"  controls muted="true"></video>
+        <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+        <script>eruda.init();</script>
+
+        <script>
+
+            window.onload = function() {
+                getStream();
+            } 
+
+            function getStream() {
+                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    navigator.mediaDevices.getUserMedia( {'video': true, 'audio': true}, success, error);
+
+                } else if (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
+                    var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+                    getUserMedia.call(navigator, {'video': true, 'audio': true}, success, error);
+                } else {
+                    console.log(navigator)
+                    console.error("不支持");
+                    return;
+                }
+            }
+
+            function success(stream) {
+                var video = document.getElementById("video2");
+                video.srcObject = stream;
+
+                console.log("success");
+            }
+
+            function error(err) {
+                console.error(err);
+            }
+        </script>
+    </body>
+</html>
