@@ -7,10 +7,13 @@
     </head>
 
     <body>
-        <h1>远程视频流</h1>
-        <video id="video1" style="width: 360px; height:480px"  controls muted="true"></video>
-        <h1>本地视频流</h1>
-        <video id="video2" style="width: 360px; height:480px"  controls muted="true"></video>
+        <div>
+            <h1>远程视频流</h1>
+            <video id="video1" style="width:360px; height:480px" controls muted="true"></video>
+            <h1>本地视频流</h1>
+            <video id="video2" style="width:360px; height:480px" controls muted="true"></video>
+        </div>
+
         <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
         <script>eruda.init();</script>
@@ -29,8 +32,7 @@
                     var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
                     getUserMedia.call(navigator, {'video': true, 'audio': true}, success, error);
                 } else {
-                    console.log(navigator)
-                    console.error("不支持");
+                    console.error("设备不支持");
                     return;
                 }
             }
